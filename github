@@ -27,3 +27,5 @@ if [ $1 = "clone" -a $# = 2 ]
 then username=`git config --global github.user`; repository=$2; git clone git@github.com:$username/$repository; exit 0;
 fi;
 
+# Classical command git
+git $*; exit 0;
