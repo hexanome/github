@@ -1,0 +1,29 @@
+#!/bin/bash --norc
+
+# Test if no arguments have been added
+if [ $# -lt 1 ];
+  then echo "ERROR - You must add arguments"; exit 1;
+fi;
+
+# Test if number of arguments was lower than 2
+if [ $# -lt 2 ];
+  then echo "ERROR - You missed some arguments, please read README.md for more
+  informations"; exit 2;
+fi;
+
+# Test the git command
+git > /dev/null;
+if [ $? != 1 ]
+  then echo "ERROR - Git is not installed"; exit 3;
+fi;
+
+# Classical command github clone
+if [ $1 = "clone" -a $# = 3 ]
+  then username=$2; repository=$3; git clone http://github.com/$username/$repository; exit 0;
+fi;
+
+# Other command github clone for your repository
+if [ $1 = "clone" -a $# = 2 ]
+then username=`git config --global github.user`; repository=$2; git clone git@github.com:$username/$repository; exit 0;
+fi;
+
