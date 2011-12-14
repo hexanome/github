@@ -5,12 +5,6 @@ if [ $# -lt 1 ];
   then echo "ERROR - You must add arguments"; exit 1;
 fi;
 
-# Test if number of arguments was lower than 2
-if [ $# -lt 2 ];
-  then echo "ERROR - You missed some arguments, please read README.md for more
-  informations"; exit 2;
-fi;
-
 # Test the git command
 git > /dev/null;
 if [ $? != 1 ]
