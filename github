@@ -2,28 +2,40 @@
 
 # Test if no arguments have been added
 if [ $# -lt 1 ];
-  then echo "ERROR - You must add arguments"; exit 1;
+  then #echo "ERROR - You must add arguments";
+    cat README.md;
+    exit 1;
 fi;
 
 # Test the git command
 git > /dev/null;
-if [ $? != 1 ]
+if [ $? != 1 ];
   then echo "ERROR - Git is not installed"; exit 3;
 fi;
 
 # Classical command github clone
-if [ $1 = "clone" -a $# = 3 ]
+if [ $1 = "clone" -a $# = 3 ];
   then username=$2; repository=$3; git clone http://github.com/$username/$repository; exit 0;
 fi;
 
 # Other command github clone for your repository
-if [ $1 = "clone" -a $# = 2 ]
+if [ $1 = "clone" -a $# = 2 ];
 then username=`git config --global github.user`; repository=$2; git clone git@github.com:$username/$repository; exit 0;
 fi;
 
 # Github info command
-if [ $1 = "info" ]
-  then username=`git config --global github.user`; email=`git config --global user.email`; editor=`git config --global core.editor`; name=`git config --global user.name`; token=`git config --global github.token`; echo "Github account :" $username; echo "Github email   :" $email; echo "Github editor  :" $editor; echo "Your name      :" $name; echo "Your API token :" $token; exit 0;
+if [ $1 = "info" ];
+  then username=`git config --global github.user`; email=`git config --global user.email`; editor=`git config --global core.editor`; name=`git config --global user.name`; token=`git config --global github.token`; echo "Github account :" $username; echo "Github email   :" $email; echo "Your editor    :" $editor; echo "Your name      :" $name; echo "Your API token :" $token; exit 0;
+fi;
+
+# Github ssh command
+if [ $1 = "ssh" ];
+  then cat ~/.ssh/id_rsa.pub;
+fi;
+
+# Github add remote command
+if [ $1 = "remote" -a $# = 3 ];
+  #then echo git remote $2 $3 http://github.com/$3/`git remote -v | grep origin | sed 's_^.*/\([a-zA-Z]*\) .*_\1_g'`; exit 0;
 fi;
 
 # Classical command git
