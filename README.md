@@ -8,7 +8,8 @@ Extensions github commands are:
    clone <username> <repository>        Clone the  repository at http://github.com/<username>/<repository>
    clone <repository>                   Clone your repository at git@github.com/<username>/<repository>
    info                                 Give informations contained in your .gitconfig
-   ssh                                  Give your public SSH key
+   pubkey                               Give your public RSA public key
+   commit [options]                     Commit on Github.com with your signed-of-by
 
 The most commonly used git commands are:
    add        Add file contents to the index

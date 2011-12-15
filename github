@@ -10,7 +10,7 @@ fi;
 # Test the git command
 git > /dev/null;
 if [ $? != 1 ];
-  then echo "ERROR - Git is not installed"; exit 3;
+  then echo "ERROR - Git is not installed"; exit 2;
 fi;
 
 # Classical command github clone
@@ -23,20 +23,22 @@ if [ $1 = "clone" -a $# = 2 ];
 then username=`git config --global github.user`; repository=$2; git clone git@github.com:$username/$repository; exit 0;
 fi;
 
+# Classical command github commit with your signed-of-by
+if [ $1 = "commit" ]
+  then git commit -s $2 $3 $4 $5 $6 $7 $8 $9; exit 0;
+fi;
+
 # Github info command
 if [ $1 = "info" ];
-  then username=`git config --global github.user`; email=`git config --global user.email`; editor=`git config --global core.editor`; name=`git config --global user.name`; token=`git config --global github.token`; echo "Github account :" $username; echo "Github email   :" $email; echo "Your editor    :" $editor; echo "Your name      :" $name; echo "Your API token :" $token; exit 0;
+  then username=`git config --global github.user`; email=`git config --global user.email`; editor=`git config --global core.editor`; name=`git config --global user.name`; token=`git config --global github.token`; pubkey=`cat ~/.ssh/id_rsa.pub`; echo "Github account  :" $username; echo "Github email    :" $email; echo "Your editor     :" $editor; echo "Your name       :" $name; echo "Your API token  :" $token; echo "Your public key : Launch the command github pubkey" ; exit 0;
 fi;
 
 # Github ssh command
-if [ $1 = "ssh" ];
-  then cat ~/.ssh/id_rsa.pub;
+if [ $1 = "pubkey" ];
+  then cat ~/.ssh/id_rsa.pub; exit 0;
 fi;
 
-# Github add remote command
-if [ $1 = "remote" -a $# = 3 ];
-  #then echo git remote $2 $3 http://github.com/$3/`git remote -v | grep origin | sed 's_^.*/\([a-zA-Z]*\) .*_\1_g'`; exit 0;
-fi;
+# TODO Github add remote command
 
 # Classical command git
 git $*; exit 0;
