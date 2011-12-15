@@ -1,39 +1,22 @@
-usage: github  [--version] [--exec-path[=<path>]] [--html-path]
-               [-p|--paginate|--no-pager] [--no-replace-objects]
-               [--bare] [--git-dir=<path>] [--work-tree=<path>]
-               [-c name=value] [--help]
-               <command> [<args>]
+#Github command
 
-Extensions github commands are:
-   clone <username> <repository>        Clone the  repository at http://github.com/<username>/<repository>
-   clone <repository>                   Clone your repository at git@github.com/<username>/<repository>
-   info                                 Give informations contained in your .gitconfig
-   pubkey                               Give your public RSA public key
-   commit [options]                     Commit on Github.com with your signed-of-by
-   pull                                 Git pull origin master
-   push                                 Git push origin master
+A easy "Github command" to make better the utilisation of Github
 
-The most commonly used git commands are:
-   add        Add file contents to the index
-   bisect     Find by binary search the change that introduced a bug
-   branch     List, create, or delete branches
-   checkout   Checkout a branch or paths to the working tree
-   clone      Clone a repository into a new directory
-   commit     Record changes to the repository
-   diff       Show changes between commits, commit and working tree, etc
-   fetch      Download objects and refs from another repository
-   grep       Print lines matching a pattern
-   init       Create an empty git repository or reinitialize an existing one
-   log        Show commit logs
-   merge      Join two or more development histories together
-   mv         Move or rename a file, a directory, or a symlink
-   pull       Fetch from and merge with another repository or a local branch
-   push       Update remote refs along with associated objects
-   rebase     Forward-port local commits to the updated upstream head
-   reset      Reset current HEAD to the specified state
-   rm         Remove files from the working tree and from the index
-   show       Show various types of objects
-   status     Show the working tree status
-   tag        Create, list, delete or verify a tag object signed with GPG
+##Get it
+1. fork or download [github] (https://github.com/hexanome/github)
 
-See 'git help <command>' for more information on a specific command.
+##Use it
+1. run `make install`
+2. hit `github` to see options
+3. enjoy
+
+##Contribute to github project
+1. see [issues] (https://github.com/hexanome/github/issues)
+2. send [pull requests] (http://help.github.com/send-pull-requests/)
+3. contact [David Aparicio] (https://github.com/inbox/new/davidaparicio) or [Jan
+      Keromnes] (https://github.com/inbox/new/jankeromnes)
+
+##Versions
+Versions are tags labeled after the year and month it was released.
+
+  v1201  → january 2012          
