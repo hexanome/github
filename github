@@ -40,5 +40,15 @@ fi;
 
 # TODO Github add remote command
 
+# Github pull command
+if [ $1 = "pull" -a $# = 1 ];
+  then git pull origin master; exit 0;
+fi;
+
+# Github push command
+if [ $1 = "push" -a $# = 1 ];
+  then git push origin master; exit 0;
+fi;
+
 # Classical command git
 git $*; exit 0;
