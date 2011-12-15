@@ -34,7 +34,7 @@ if [ $1 = "update" -a $# = 3 ]
 fi;
 
 # Github update command without branch
-if [ $1 = "update"]
+if [ $1 = "update" ]
   then git pull origin master && git push origin master; exit 0;
 fi;
 
