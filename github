@@ -28,6 +28,11 @@ if [ $1 = "commit" ]
   then git commit -s $2 $3 $4 $5 $6 $7 $8 $9; exit 0;
 fi;
 
+# Github update command
+if [ $1 = "update" ]
+  then git pull origin master && git push origin master; exit 0;
+fi;
+
 # Github info command
 if [ $1 = "info" ];
   then username=`git config --global github.user`; email=`git config --global user.email`; editor=`git config --global core.editor`; name=`git config --global user.name`; token=`git config --global github.token`; pubkey=`cat ~/.ssh/id_rsa.pub`; echo "Github account  :" $username; echo "Github email    :" $email; echo "Your editor     :" $editor; echo "Your name       :" $name; echo "Your API token  :" $token; echo "Your public key : \`github pubkey\`" ; exit 0;
