@@ -10,6 +10,8 @@ Extensions github commands are:
    info                                 Give informations contained in your .gitconfig
    pubkey                               Give your public RSA public key
    commit [options]                     Commit on Github.com with your signed-of-by
+   pull                                 Git pull origin master
+   push                                 Git push origin master
 
 The most commonly used git commands are:
    add        Add file contents to the index
