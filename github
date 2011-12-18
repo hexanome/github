@@ -3,7 +3,7 @@
 # Test if no arguments have been added
 if [ $# -lt 1 ];
   then #echo "ERROR - You must add arguments";
-    cat help;
+    cat commands; 
     exit 1;
 fi;
 
@@ -36,6 +36,11 @@ fi;
 # Github update command without branch
 if [ $1 = "update" ]
   then git pull origin master && git push origin master; exit 0;
+fi;
+
+# Github update command without branch
+if [ $1 = "page" ]
+  then git pull origin 'master:gh-pages' && git push origin 'master:gh-pages'; exit 0;
 fi;
 
 # Github info command
