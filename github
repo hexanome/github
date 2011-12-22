@@ -39,8 +39,18 @@ if [ $1 = "update" ]
 fi;
 
 # Github update command without branch
-if [ $1 = "page" ]
+if [ $1 = "page" -a $# = 1 ]
   then git pull origin 'master:gh-pages' && git push origin 'master:gh-pages'; exit 0;
+fi;
+
+# Github tiny command without branch
+if [ $1 = "tiny" -a $# = 1 ]
+  then git pull origin master && git add -A && git commit -s && git push origin master; exit 0;
+fi;
+
+# Github tiny command with branch
+if [ $1 = "tiny" -a $# = 3 ]
+  then git pull $2 $3 && git add -A && git commit -s && git push $2 $3; exit 0;
 fi;
 
 # Github info command

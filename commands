@@ -13,6 +13,9 @@ Extensions github commands are:
    pubkey                               Give your public RSA public key
    pull                                 Git pull origin master
    push                                 Git push origin master
+   tiny <remote> <branch>               Only for SMALL projects : git pull <remote> <branch> && git add -A && git commit -s && git push <remote> <branch>
+   tiny                                 Only for SMALL projects : git pull origin master && git add -A && git commit -s && git push origin master
+   update <remote> <branch>             Git pull <remote> <branch> && Git push <remote> <branch>
    update <remote> <branch>             Git pull <remote> <branch> && Git push <remote> <branch>
    update                               Git pull origin master && Git push origin master
 
