@@ -4,5 +4,6 @@ info:
 install:
 	@echo "Installing to /usr/local/bin"
 	@cp github /usr/local/bin
+	@cp githubcommands /usr/local/bin
 
 .PHONY: info install

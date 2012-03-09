@@ -3,8 +3,15 @@
 # Test if no arguments have been added
 if [ $# -lt 1 ];
   then #echo "ERROR - You must add arguments";
-    cat commands; 
+    cat githubcommands; 
     exit 1;
+fi;
+
+# If you want to see all commands
+if [ $1 = "help" ]
+  then #echo "The list of commands:";
+    cat githubcommands; 
+    exit 0;
 fi;
 
 # Test the git command
