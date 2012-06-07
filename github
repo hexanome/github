@@ -1,23 +1,45 @@
-#!/bin/bash --norc
+#!/bin/bash
+
+# Help
+show_help() {
+echo "usage: github <command> [<args>]"
+echo ""
+echo "Extensions github commands are:"
+echo "clone <username> <repository>        Clone the  repository at http://github.com/<username>/<repository>"
+echo "clone <repository>                   Clone your repository at git@github.com/<username>/<repository>"
+echo "commit [options]                     Commit on Github.com with your signed-of-by"
+echo "info                                 Give informations contained in your .gitconfig"
+echo "page                                 Update your webpages : git push origin 'master:gh-pages' && git pull origin 'master:gh-pages'"
+echo "pubkey                               Give your public RSA public key"
+echo "pull                                 Git pull origin master"
+echo "push                                 Git push origin master"
+echo "tiny <remote> <branch>               Only for SMALL projects : git pull <remote> <branch> && git add -A && git commit -s && git push <remote> <branch>"
+echo "tiny                                 Only for SMALL projects : git pull origin master && git add -A && git commit -s && git push origin master"
+echo "update <remote> <branch>             Git pull <remote> <branch> && Git push <remote> <branch>"
+echo "update <remote> <branch>             Git pull <remote> <branch> && Git push <remote> <branch>"
+echo "update                               Git pull origin master && Git push origin master"
+echo ""
+echo "See 'git help' for more information on a git command."
+}
 
 # Test if no arguments have been added
-if [ $# -lt 1 ];
-  then #echo "ERROR - You must add arguments";
-    cat githubcommands; 
-    exit 1;
-fi;
+if [ $# -lt 1 ]; then 
+  show_help
+  exit 1
+fi
+
+# Test the git command
+git > /dev/null
+if [ $? != 1 ]; then 
+  echo "ERROR - Git is not installed";
+  exit 2;
+fi
 
 # If you want to see all commands
 if [ $1 = "help" ]
   then #echo "The list of commands:";
-    cat githubcommands; 
+    show_help; 
     exit 0;
-fi;
-
-# Test the git command
-git > /dev/null;
-if [ $? != 1 ];
-  then echo "ERROR - Git is not installed"; exit 2;
 fi;
 
 # Classical command github clone
@@ -58,6 +80,74 @@ fi;
 # Github tiny command with branch
 if [ $1 = "tiny" -a $# = 3 ]
   then git pull $2 $3 && git add -A && git commit -s && git push $2 $3; exit 0;
+fi;
+
+# Github wizard for the first use
+if [ $1 = "setup" ];
+  then cd ~/.ssh;
+  if [ $? = 1 ];
+  then echo -n "You don't have SSH keys";
+  #https://help.github.com/articles/generating-ssh-keys & https://help.github.com/articles/set-up-git
+  echo -n "What are your email registered on Github?"
+  read EMAIL;
+  ssh-keygen -t rsa -C EMAIL;
+  fi;
+  echo -n "Now, you must add your SSH key to GitHub. Your public key is:";
+  cat ~/.ssh/id_rsa.pub;
+  echo -n "See: http://help.github.com/articles/generating-ssh-keys#step4"
+fi;
+
+# Github config for awesone use
+if [ $1 = "setup" ];
+  then echo -n "First, What's your name?";
+  read NAME;
+  git config --global user.name NAME;
+  echo -n "Now, What's your email?";
+  read EMAIL;
+  git config --global user.email EMAIL;
+  echo -n "Do you set your API account (Y/N)?"
+    while read -r -n 1 -s answer; do
+      if [[ $answer = [YyNn] ]]; then
+        [[ $answer = [Yy] ]] && retval=0
+        [[ $answer = [Nn] ]] && retval=1
+        break
+      fi
+      if retval; then
+      echo -n "[1/2] What's your username?";
+      read USERNAME;
+      git config --global github.user USERNAME;
+      echo -n "[2/2] What's your username?";
+      read TOKEN;
+      git config --global github.token TOKEN;
+      fi;
+    done
+  echo -n "Do you set the credential cache, to avoid put your password everytime (Y/N)?"
+    while read -r -n 1 -s answer; do
+      if [[ $answer = [YyNn] ]]; then
+        [[ $answer = [Yy] ]] && retval=0
+        [[ $answer = [Nn] ]] && retval=1
+        break
+      fi
+      if retval; then
+      git config --global credential.helper cache;
+      echo -n "What's the timeout of the cache? (in seconds)";
+      read TIMEOUT;
+      git config --global credential.helper 'cache --timeout=3600';
+      fi;
+    done 
+  echo -n "Do you set your favorite editor (Y/N)?"
+      while read -r -n 1 -s answer; do
+        if [[ $answer = [YyNn] ]]; then
+          [[ $answer = [Yy] ]] && retval=0
+          [[ $answer = [Nn] ]] && retval=1
+          break
+        fi
+        if retval; then
+        echo "What are its name?"
+        read EDITOR;
+        git config --global core.edit EDITOR;
+        fi;
+      done
 fi;
 
 # Github info command
