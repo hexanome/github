@@ -5,7 +5,7 @@ show_help() {
 echo "usage: github <command> [<args>]"
 echo ""
 echo "Extensions github commands are:"
-echo "clone <username> <repository>        Clone the  repository at http://github.com/<username>/<repository>"
+echo "clone <username> <repository>        Clone the repository at http://github.com/<username>/<repository>"
 echo "clone <repository>                   Clone your repository at git@github.com/<username>/<repository>"
 echo "commit [options]                     Commit on Github.com with your signed-of-by"
 echo "info                                 Give informations contained in your .gitconfig"
@@ -15,7 +15,6 @@ echo "pull                                 Git pull origin master"
 echo "push                                 Git push origin master"
 echo "tiny <remote> <branch>               Only for SMALL projects : git pull <remote> <branch> && git add -A && git commit -s && git push <remote> <branch>"
 echo "tiny                                 Only for SMALL projects : git pull origin master && git add -A && git commit -s && git push origin master"
-echo "update <remote> <branch>             Git pull <remote> <branch> && Git push <remote> <branch>"
 echo "update <remote> <branch>             Git pull <remote> <branch> && Git push <remote> <branch>"
 echo "update                               Git pull origin master && Git push origin master"
 echo ""
@@ -86,13 +85,13 @@ fi;
 if [ $1 = "setup" ];
   then cd ~/.ssh > /dev/null;
   if [ $? = 1 ];
-  then echo -n "You don't have SSH keys";
+  then echo -n "You have no SSH keys";
   #https://help.github.com/articles/generating-ssh-keys & https://help.github.com/articles/set-up-git
-  echo -n "What are your email registered on Github?"
+  echo -n "What email address did you register on Github?"
   read EMAIL;
   ssh-keygen -t rsa -C EMAIL;
   fi;
-  echo -n "Now, you must add your SSH key to GitHub. Your public key is:";
+  echo -n "Now, add this SSH public key to your GitHub account:";
   cat ~/.ssh/id_rsa.pub;
   echo -n "See: http://help.github.com/articles/generating-ssh-keys#step4"
 fi;
@@ -105,7 +104,7 @@ if [ $1 = "setup" ];
   echo -n "Now, What's your email?";
   read EMAIL;
   git config --global user.email EMAIL;
-  echo -n "Do you set your API account (Y/N)?"
+  echo -n "Do you wish to configure your API account? [y/n]:"
     while read -r -n 1 -s answer; do
       if [[ $answer = [YyNn] ]]; then
         [[ $answer = [Yy] ]] && retval=0
@@ -116,12 +115,12 @@ if [ $1 = "setup" ];
       echo -n "[1/2] What's your username?";
       read USERNAME;
       git config --global github.user USERNAME;
-      echo -n "[2/2] What's your username?";
+      echo -n "[2/2] What's your token?";
       read TOKEN;
       git config --global github.token TOKEN;
       fi;
     done
-  echo -n "Do you set the credential cache, to avoid put your password everytime (Y/N)?"
+  echo -n "Do you wish to cache your credentials, to avoid typing your password everytime? [y/n]:"
     while read -r -n 1 -s answer; do
       if [[ $answer = [YyNn] ]]; then
         [[ $answer = [Yy] ]] && retval=0
@@ -130,12 +129,12 @@ if [ $1 = "setup" ];
       fi
       if retval; then
       git config --global credential.helper cache;
-      echo -n "What's the timeout of the cache? (in seconds)";
+      echo -n "What's the cache timeout? (in seconds)";
       read TIMEOUT;
       git config --global credential.helper 'cache --timeout=3600';
       fi;
     done 
-  echo -n "Do you set your favorite editor (Y/N)?"
+  echo -n "Do you wish to configure your favorite editor? [y/n]:"
       while read -r -n 1 -s answer; do
         if [[ $answer = [YyNn] ]]; then
           [[ $answer = [Yy] ]] && retval=0
@@ -143,7 +142,7 @@ if [ $1 = "setup" ];
           break
         fi
         if retval; then
-        echo "What are its name?"
+        echo "What is your favorite editor?"
         read EDITOR;
         git config --global core.edit EDITOR;
         fi;
