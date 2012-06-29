@@ -43,7 +43,7 @@ fi;
 
 # Classical command github clone
 if [ $1 = "clone" -a $# = 3 ];
-  then username=$2; repository=$3; git clone http://github.com/$username/$repository; exit 0;
+  then username=$2; repository=$3; git clone git@github.com:$username/$repository; exit 0;
 fi;
 
 # Other command github clone for your repository
